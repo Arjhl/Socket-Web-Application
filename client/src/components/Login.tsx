@@ -1,6 +1,15 @@
 import { useRef } from "react";
+// import { useContext } from "react";
+// import { accountContext } from "../store/accountContext";
+import { useNavigate } from "react-router-dom";
+import { useSetCtx } from "@/store/useSetContext";
+import styles from "./Signup.module.css";
 
 const Login = () => {
+  const nav = useNavigate();
+  // const ctx = useContext(accountContext);
+  const setCtx = useSetCtx();
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -21,18 +30,49 @@ const Login = () => {
     const data = await res.json();
 
     console.log(data);
+
+    if (data.message) {
+      alert(data.message);
+    }
+
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      // const { age, mobile, username, user_id, image } = data.accountData;
+      console.log(data);
+      localStorage.setItem("id", data.accountData.user_id);
+      //add user details to context
+      setCtx(data);
+      // console.log(age, mobile, username, user_id, image);
+      // console.log(data);
+
+      nav("/dashboard");
+    }
+  };
+
+  const resetPass = () => {
+    nav("/reset");
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <input type="string" ref={emailRef}></input>
-      <br />
-      <br />
-      <input type="password" ref={passwordRef}></input>
-      <br />
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.head}>A Messenger App by 😑.</h1>
+
+        <form onSubmit={submitHandler} className={styles.form}>
+          <input type="string" ref={emailRef} placeholder="Email" />
+          <br />
+          <br />
+          <input type="password" ref={passwordRef} placeholder="Password" />
+          <br />
+          <br />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Forgot Password ? <button onClick={resetPass}> Click Here </button>
+        </p>
+        <footer>Techstack : MERN & Socket.io.</footer>
+      </div>
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -7,6 +8,7 @@ const accountSchema = new Schema({
   age: String,
   mobile: String,
   user_id: String,
+  contact_id: String,
 });
 
 module.exports = mongoose.model("Account", accountSchema);

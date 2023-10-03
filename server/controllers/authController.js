@@ -5,18 +5,22 @@ const jwt = require("jsonwebtoken");
 
 const handleLogin = async (req, res, next) => {
   const { email, pass } = req.body;
-  console.log(req.body);
+
   if (!email || !pass)
     return res.status(401).json({ message: "Email and password are required" });
 
   const foundUser = await User.findOne({ email: email }).exec();
 
-  if (!foundUser) res.sendStatus(401);
+  if (!foundUser)
+    return res.status(401).json({ message: "Account does not exist" });
 
   const match = await bcrypt.compare(pass, foundUser.pass);
-  console.log(match);
 
-  if (match) {
+  if (!match) {
+    return res
+      .status(401)
+      .json({ message: "Credentials are wrong or doesnt exist." });
+  } else {
     try {
       const Token = jwt.sign({ id: foundUser._id }, process.env.SECRET_KEY, {
         expiresIn: "90d",
@@ -27,7 +31,6 @@ const handleLogin = async (req, res, next) => {
         user_id: foundUser.id,
       }).exec();
 
-      console.log("after login account data", accountData);
       res.status(200).json({ token: Token, accountData });
     } catch (err) {
       console.log(err);

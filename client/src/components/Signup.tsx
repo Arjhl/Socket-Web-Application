@@ -1,11 +1,20 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import styles from "./Signup.module.css";
 
 const SignUp = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
+  //this is the landing page so if the user logged in already/before and the token is present in local storage then i want to get the user data
+  console.log(localStorage);
+  useEffect(() => {
+    if (localStorage.getItem("id")) {
+      navigate("/dashboard");
+    }
+  }, []);
   // socket.on("connect", () => {
   //   console.log(socket.id);
 
@@ -62,20 +71,38 @@ const SignUp = () => {
       navigate(`/${data._id}/userdetails`);
     } catch (err: any) {
       console.log(err);
+      alert(err);
       console.log(err.message ? err.message : err);
     }
   };
+  const redirectedToLogin = () => {
+    navigate("/login");
+  };
 
   return (
-    <form onSubmit={submitHandler}>
-      <input type="string" ref={emailRef}></input>
-      <br />
-      <br />
-      <input type="password" ref={passwordRef}></input>
-      <br />
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.head}>A Messenger App by 😑.</h1>
+        <form onSubmit={submitHandler} className={styles.form}>
+          <input type="string" ref={emailRef} placeholder="Email"></input>
+          <br />
+          <br />
+          <input
+            type="password"
+            ref={passwordRef}
+            placeholder="Password"
+          ></input>
+          <br />
+          <br />
+          <button type="submit">Submit</button>
+        </form>
+        <p>
+          Already registered ?
+          <button onClick={redirectedToLogin}>Login ?</button>
+        </p>
+        <footer>Techstack : MERN & Socket.io.</footer>
+      </div>
+    </div>
   );
 };
 

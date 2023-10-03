@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const handleNewUser = async (req, res) => {
   //password validation is handled in frontend
-  console.log(req.body);
+
   const { email, pass } = req.body;
 
   if (!email || !pass) {
@@ -21,8 +21,6 @@ const handleNewUser = async (req, res) => {
       pass: hash,
       createdAt: new Date(),
     });
-
-    console.log(result);
 
     return res.status(201).json({ data: result });
   } catch (err) {

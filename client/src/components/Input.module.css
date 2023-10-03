@@ -1,0 +1,33 @@
+.formContainer {
+  margin: 2vh 1vw;
+  border: 1px solid rgb(71, 70, 70);
+  border-radius: 15px;
+  display: flex;
+  padding: 1vh 1vw;
+  justify-content: center;
+}
+.formContainer input {
+  height: 4vh;
+  width: 70vw;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1.2em;
+  color: aliceblue;
+  font-weight: 500;
+}
+.formContainer input:focus {
+  border: none;
+  outline: none;
+}
+.formContainer button {
+  cursor: pointer;
+  font-size: 1.5em;
+  border: none;
+  background-color: transparent;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+.formContainer button:hover {
+  transform: scale(1.1);
+}

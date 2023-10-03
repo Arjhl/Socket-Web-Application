@@ -1,0 +1,32 @@
+.contact {
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  margin: 1vh 0.5vw;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+.contact div h6 {
+  font-size: 1.2em;
+  text-align: left;
+  padding-bottom: 0.5vh;
+  color: rgb(200, 200, 200);
+}
+.contact div p {
+  font-size: 0.8em;
+  color: rgb(167, 167, 167);
+  text-align: left;
+}
+.contact:hover {
+  background-color: rgb(71, 26, 26);
+}
+.active {
+  background-color: rgb(71, 26, 26);
+}
+.contact img {
+  height: 4vh;
+  object-fit: cover;
+  width: 4vw;
+  clip-path: circle();
+}

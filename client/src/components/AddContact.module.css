@@ -1,0 +1,38 @@
+.form {
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.form input {
+  width: 90%;
+  transition: all 0.3s ease-in-out;
+  padding: 1vh 1vw;
+  font-size: 1em;
+  font-weight: 500;
+  color: white;
+  border: none;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form input:focus,
+.form input:hover {
+  outline: none;
+}
+.form button {
+  width: 20%;
+  color: white;
+  background-color: #000;
+  border: none;
+  font-size: 1.2em;
+  transition: all 0.3s ease-in-out;
+  font-weight: 800;
+  cursor: pointer;
+  color: grey;
+}
+.form button:focus,
+.form button:hover {
+  outline: none;
+}

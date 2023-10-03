@@ -3,6 +3,7 @@ const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 let path = require("path");
 let Account = require("../model/account");
+const Contacts = require("../model/contacts");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,6 +21,9 @@ Router.post("/", upload.single("image"), async (req, res) => {
   const { age, mobile, username, userid } = req.body;
 
   const image = req.file.filename;
+  const newContact = await Contacts.create({
+    contacts: [],
+  });
 
   const newAcc = await Account.create({
     image,
@@ -27,6 +31,7 @@ Router.post("/", upload.single("image"), async (req, res) => {
     mobile,
     username,
     user_id: userid,
+    contact_id: newContact._id,
   });
 
   if (newAcc) {

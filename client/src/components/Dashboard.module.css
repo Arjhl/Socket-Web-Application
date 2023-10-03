@@ -1,0 +1,53 @@
+.container {
+  height: 98vh;
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 5vw;
+  border-radius: 15px;
+  background-color: #000;
+}
+.userDetails {
+  display: flex;
+  border-radius: 15px 15px 0 0;
+  align-items: center;
+  height: 7vh;
+  padding: 1vh;
+  background-color: rgb(52, 44, 51);
+  transition: all 0.5s ease-in-out;
+}
+.userDetails h1 {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+.userDetails img {
+  height: 5vh;
+  width: 4vw;
+  object-fit: cover;
+  clip-path: circle();
+}
+.flexBox {
+  height: 90vh;
+  /* border: 2px solid green; */
+  width: 90vw;
+  display: flex;
+}
+.contactList {
+  width: 15vw;
+  height: 92vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(18, 18, 18);
+  /* border-radius: 15px; */
+}
+.contacts {
+  margin: 1vh 0;
+  height: 89vh;
+}
+.msgContainer {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  width: 75vw;
+}

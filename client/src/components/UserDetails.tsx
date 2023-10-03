@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import styles from "./userDetails.module.css";
 
 const UserDetails = () => {
   const nav: any = useNavigate();
@@ -38,7 +39,11 @@ const UserDetails = () => {
   };
 
   return (
-    <form onSubmit={submitHandler} encType="multipart/form-data">
+    <form
+      onSubmit={submitHandler}
+      encType="multipart/form-data"
+      className={styles.form}
+    >
       <input
         type="username"
         placeholder="Enter Username"

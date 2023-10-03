@@ -5,12 +5,12 @@ const defaultValue = {
   age: "",
   image: "",
   mobile: "",
-  id: "",
+  user_id: "",
 };
 
 const accountContext = createContext(defaultValue);
 
-const accountContextProvider = (props: any) => {
+const AccountContextProvider = (props: any) => {
   return (
     <accountContext.Provider value={defaultValue}>
       {props.children}
@@ -18,4 +18,4 @@ const accountContextProvider = (props: any) => {
   );
 };
 
-export { accountContextProvider, accountContext };
+export { AccountContextProvider, accountContext };
