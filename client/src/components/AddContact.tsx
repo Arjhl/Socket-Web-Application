@@ -20,6 +20,7 @@ const AddContact = (props) => {
         method: "post",
         headers: {
           "content-type": "application/json",
+          Authorization: String(localStorage.getItem("token")),
         },
         body: JSON.stringify({
           senderId: localStorage.getItem("id"),

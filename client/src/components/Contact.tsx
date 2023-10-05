@@ -17,26 +17,28 @@ const Contact = () => {
   };
 
   const getAllContacts = async () => {
-    const res = await fetch(
-      import.meta.env.VITE_SERVER_URL + "userData/contacts",
-      {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          id: localStorage.getItem("id"),
-        }),
-      }
-    );
-    console.log("inside get All contacts");
-    const contacts = await res.json();
-    console.log(contacts);
-    setContacts(contacts);
+    try {
+      const res = await fetch(
+        import.meta.env.VITE_SERVER_URL + "userData/contacts",
+        {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+            Authorization: String(localStorage.getItem("token")),
+          },
+          body: JSON.stringify({
+            id: localStorage.getItem("id"),
+          }),
+        }
+      );
+      console.log("inside get All contacts");
+      const contacts = await res.json();
+      console.log(contacts);
+      setContacts(contacts);
+    } catch (err) {
+      alert("Somethings broken , try logging out and loggin in again");
+    }
   };
-  useEffect(() => {
-    getAllContacts();
-  }, []);
   useEffect(() => {
     getAllContacts();
   }, [params.id]);

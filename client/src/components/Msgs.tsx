@@ -21,6 +21,7 @@ const Msgs = (props) => {
       }),
       headers: {
         "content-type": "application/json",
+        Authorization: String(localStorage.getItem("token")),
       },
     });
 

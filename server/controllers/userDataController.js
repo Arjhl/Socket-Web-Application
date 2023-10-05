@@ -109,7 +109,7 @@ const getMsgs = async (req, res) => {
       const newSenderContact = {
         receiverId: receiverId,
         contactName: receverAcc.username,
-        lastInteracted: Date.parse(),
+        lastInteracted: Date.now(),
         lastMessage: {
           senderId: "",
           text: "",
@@ -121,7 +121,7 @@ const getMsgs = async (req, res) => {
       const newReceiverContact = {
         receiverId: senderId,
         contactName: senderAcc.username,
-        lastInteracted: Date.parse(),
+        lastInteracted: Date.now(),
         lastMessage: {
           senderId: "",
           text: "",

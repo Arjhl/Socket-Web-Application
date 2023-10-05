@@ -1,4 +1,8 @@
-var whitelist = ["http://localhost:5173/", "http://127.0.0.1:5173"];
+var whitelist = [
+  "http://localhost:5173/",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5173/dashboard",
+];
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (!whitelist.indexOf(req.header("Origin")) !== -1) {

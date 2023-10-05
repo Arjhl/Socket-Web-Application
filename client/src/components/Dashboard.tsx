@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import socket from "@/conn/webSocket";
 import Protected from "@/Protected";
 import AddContact from "./AddContact";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const ctx = useContext(accountContext);
@@ -17,12 +18,11 @@ const Dashboard = () => {
   const params = useParams();
   // const [allUsers, setAllUsers] = useState([]);
   const setCtx = useSetCtx();
-
-  console.log(params.id);
+  const nav = useNavigate();
 
   useEffect(() => {
     const getUserData = async () => {
-      if (localStorage.getItem("token")) {
+      try {
         const user_id = localStorage.getItem("id");
         const res = await fetch(import.meta.env.VITE_SERVER_URL + "userData", {
           method: "post",
@@ -31,16 +31,22 @@ const Dashboard = () => {
           }),
           headers: {
             "content-type": "application/json",
+            Authorization: String(localStorage.getItem("token")),
           },
         });
         const userData = await res.json();
 
+        console.log("userData to update context", userData);
         setCtx(userData);
         setIsCtxUpdated(true);
         console.log(ctx);
+      } catch (err) {
+        alert("Token is invalid , Try logging out and logging in again");
       }
     };
-    getUserData();
+    if (localStorage.getItem("token")) {
+      getUserData();
+    }
     socket.emit("register", localStorage.getItem("id"));
   }, []);
 
@@ -56,6 +62,13 @@ const Dashboard = () => {
     //add msg to DB and invoke the server
     socket.emit("private_msg", newMsg);
   };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    nav("/");
+  };
+
   return (
     <Protected>
       <div className={styles.container}>
@@ -65,6 +78,10 @@ const Dashboard = () => {
             alt={ctx.image}
           />
           <h1>{ctx.username}</h1>
+
+          <button className={styles.logoutButton} onClick={logoutHandler}>
+            Logout
+          </button>
         </div>
 
         <div className={styles.flexBox}>

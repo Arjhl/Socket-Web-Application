@@ -13,6 +13,7 @@ const User = require("./model/user");
 const Account = require("./model/account");
 const Messages = require("./model/messages");
 const Contacts = require("./model/contacts");
+const verifyLogin = require("./middleware/verifyLogin");
 
 const httpServer = createServer(app);
 
@@ -23,13 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 connect();
 app.use(express.static(__dirname));
-app.use("/", (req, res, next) => {
-  next();
-});
 
 const io = new Server(httpServer, {
   cors: "*",
 });
+
 const connectedUsers = {};
 
 io.on("connection", (socket) => {
@@ -69,8 +68,10 @@ io.on("connection", (socket) => {
     // io.to(receiverSocketId).emit("private-msg", s);
     // console.log(s);
     //add msg to db
+    console.log("Socket Data ", s);
     const senderAcc = await Account.findOne({ user_id: s.senderId });
     const receiverAcc = await Account.findOne({ user_id: s.receiverId });
+    console.log("cid", senderAcc);
     const senderContactData = await Contacts.findOne({
       _id: senderAcc.contact_id,
     }).exec();
@@ -81,6 +82,7 @@ io.on("connection", (socket) => {
     const senderContact = senderContactData.contacts.filter((m) => {
       return m.receiverId === s.receiverId;
     })[0];
+
     const receiverContact = receiverContactData.contacts.filter((m) => {
       return m.receiverId === s.senderId;
     })[0];
@@ -125,6 +127,7 @@ io.on("connection", (socket) => {
 app.use("/register", require("./routes/register"));
 app.use("/userdetails", require("./routes/userdetails"));
 app.use("/auth", require("./routes/auth"));
+app.use(verifyLogin);
 app.use("/userData", require("./routes/userData"));
 
 mongoose.connection.once("open", () => {

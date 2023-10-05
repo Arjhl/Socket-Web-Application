@@ -27,6 +27,10 @@ const UserDetails = () => {
       const res = await fetch(import.meta.env.VITE_SERVER_URL + "userdetails", {
         method: "post",
         body: formData,
+        headers: {
+          "content-type": "application/json",
+          Authorization: String(localStorage.getItem("token")),
+        },
       });
 
       const data = await res.json();
@@ -52,6 +56,7 @@ const UserDetails = () => {
           setUserName(e.target.value);
         }}
         required
+        className={styles.detailsInput}
       />
       <input
         type="number"
@@ -60,6 +65,7 @@ const UserDetails = () => {
           setMobile(e.target.value);
         }}
         required
+        className={styles.detailsInput}
       />
       <input
         type="number"
@@ -68,18 +74,22 @@ const UserDetails = () => {
           setAge(e.target.value);
         }}
         required
+        className={styles.detailsInput}
       />
       <br></br>
-      <input
-        type="file"
-        onChange={(e) => {
-          console.log(e);
-          if (!e.target.files) return;
-          setImg(e.target.files[0]);
-        }}
-        name="image"
-        required
-      />
+      <div className={styles.fileInput}>
+        <label>Upload your Avatar/Image</label>
+        <input
+          type="file"
+          onChange={(e) => {
+            console.log(e);
+            if (!e.target.files) return;
+            setImg(e.target.files[0]);
+          }}
+          name="image"
+          required
+        />
+      </div>
 
       <button type="submit" value="Submit">
         Submit
