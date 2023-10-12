@@ -3,8 +3,6 @@ import styles from "./Contact.module.css";
 import { useNavigate } from "react-router-dom";
 import socket from "@/conn/webSocket";
 import { useParams } from "react-router-dom";
-import { useMemo } from "react";
-// let contacts: string[] = ["arj", "sud"];
 
 const Contact = () => {
   const params = useParams();
